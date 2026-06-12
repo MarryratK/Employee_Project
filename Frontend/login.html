@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cambodia HR — Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-base:      #1a1b2e;
+      --bg-panel:     #12131f;
+      --bg-card:      #21223a;
+      --bg-input:     #1a1b2e;
+      --border:       rgba(255,255,255,0.09);
+      --border-focus: #6366f1;
+      --accent:       #6366f1;
+      --accent-light: #818cf8;
+      --accent-glow:  rgba(99,102,241,0.25);
+      --text-primary: #f1f2f7;
+      --text-secondary:#a0a4be;
+      --text-muted:   #5c6082;
+      --rose:         #f43f5e;
+      --emerald:      #10b981;
+      --t: 200ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    [data-theme="light"] {
+      --bg-base:      #f0f1f7;
+      --bg-panel:     #6366f1;
+      --bg-card:      #ffffff;
+      --bg-input:     #f8f9fc;
+      --border:       rgba(0,0,0,0.1);
+      --border-focus: #6366f1;
+      --accent:       #5558e8;
+      --accent-light: #6366f1;
+      --accent-glow:  rgba(99,102,241,0.18);
+      --text-primary: #111218;
+      --text-secondary:#52566e;
+      --text-muted:   #9a9eb8;
+      --rose:         #e11d48;
+      --emerald:      #059669;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      display: flex;
+      min-height: 100vh;
+      transition: background 0.3s ease, color 0.2s ease;
+    }
+
+    /* ── LEFT PANEL ─────────────────────────────────── */
+    .login-panel {
+      width: 480px;
+      flex-shrink: 0;
+      background: var(--bg-panel);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* animated gradient orbs */
+    .login-panel::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 70%);
+      top: -180px; left: -100px;
+      animation: orb 8s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    .login-panel::after {
+      content: '';
+      position: absolute;
+      width: 350px; height: 350px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139,92,246,0.2) 0%, transparent 70%);
+      bottom: -80px; right: -80px;
+      animation: orb 11s ease-in-out infinite alternate-reverse;
+      pointer-events: none;
+    }
+    @keyframes orb {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(30px, 20px) scale(1.08); }
+    }
+
+    .panel-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 48px 52px;
+    }
+
+    /* Brand */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: auto;
+    }
+
+    .brand-mark {
+      width: 36px; height: 36px;
+      color: #818cf8;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 22px;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      color: #f1f2f7;
+    }
+
+    /* Hero text */
+    .panel-hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .panel-tagline {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 42px;
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: #f1f2f7;
+    }
+
+    .panel-tagline em {
+      font-style: italic;
+      color: #818cf8;
+    }
+
+    .panel-desc {
+      font-size: 15px;
+      color: rgba(241,242,247,0.55);
+      line-height: 1.7;
+      max-width: 340px;
+    }
+
+    /* Feature pills */
+    .panel-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13.5px;
+      color: rgba(241,242,247,0.65);
+    }
+
+    .feature-dot {
+      width: 28px; height: 28px;
+      background: rgba(99,102,241,0.2);
+      border: 1px solid rgba(99,102,241,0.35);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: #818cf8;
+    }
+    .feature-dot svg { width: 13px; height: 13px; }
+
+    /* Decorative grid */
+    .panel-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    /* ── RIGHT PANEL ─────────────────────────────────── */
+    .login-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      background: var(--bg-base);
+      position: relative;
+    }
+
+    /* theme toggle */
+    .theme-toggle {
+      position: absolute;
+      top: 24px; right: 24px;
+      width: 36px; height: 36px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-secondary);
+      transition: all var(--t);
+    }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent-light); }
+    .theme-toggle svg { width: 15px; height: 15px; }
+
+    /* Form card */
+    .login-card {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-card-title {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 30px;
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .login-card-sub {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 36px;
+    }
+
+    /* Error */
+    .login-error {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(244,63,94,0.1);
+      border: 1px solid rgba(244,63,94,0.3);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 24px;
+      font-size: 13.5px;
+      color: #f87171;
+      animation: shake 0.4s ease;
+    }
+    .login-error.hidden { display: none; }
+    .login-error svg { flex-shrink: 0; }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-6px); }
+      40%      { transform: translateX(6px); }
+      60%      { transform: translateX(-4px); }
+      80%      { transform: translateX(4px); }
+    }
+
+    /* Fields */
+    .login-field {
+      margin-bottom: 20px;
+    }
+
+    .login-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      letter-spacing: 0.01em;
+    }
+
+    .login-input-wrap {
+      position: relative;
+    }
+
+    .login-input {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 14.5px;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color var(--t), box-shadow var(--t), background var(--t);
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .login-input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .login-input::placeholder { color: var(--text-muted); }
+
+    .login-input-wrap .login-input {
+      padding-right: 44px;
+    }
+
+    .login-eye {
+      position: absolute;
+      right: 12px; top: 50%; transform: translateY(-50%);
+      background: none; border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 6px;
+      display: flex; align-items: center;
+      transition: color var(--t);
+    }
+    .login-eye:hover { color: var(--text-secondary); }
+    .login-eye svg { width: 16px; height: 16px; pointer-events: none; }
+
+    .field-error {
+      font-size: 12px;
+      color: var(--rose);
+      margin-top: 6px;
+    }
+    .field-error.hidden { display: none; }
+
+    /* Submit */
+    .login-btn {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 13px 20px;
+      cursor: pointer;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background var(--t), transform var(--t), box-shadow var(--t), opacity var(--t);
+      box-shadow: 0 2px 8px rgba(99,102,241,0.35);
+    }
+
+    .login-btn:hover:not(:disabled) {
+      background: var(--accent-light);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(99,102,241,0.45);
+    }
+
+    .login-btn:active:not(:disabled) { transform: translateY(0); }
+
+    .login-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    /* Spinner */
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+    .spinner.hidden { display: none; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Divider / footer */
+    .login-footer {
+      margin-top: 32px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Light mode overrides for panel */
+    [data-theme="light"] .login-panel {
+      background: linear-gradient(145deg, #4f46e5 0%, #7c3aed 100%);
+    }
+    [data-theme="light"] .panel-grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* ── RESPONSIVE ────────────────────────────────── */
+    @media (max-width: 860px) {
+      .login-panel { display: none; }
+      .login-right { padding: 40px 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .login-right { padding: 24px 16px; align-items: flex-start; padding-top: 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LEFT BRANDING PANEL -->
+  <aside class="login-panel">
+    <div class="panel-grid"></div>
+    <div class="panel-inner">
+
+      <div class="brand">
+        <div class="brand-mark">
+          <svg viewBox="0 0 48 40" fill="currentColor">
+            <rect x="0" y="35" width="48" height="5" rx="1" opacity="0.3"/>
+            <rect x="2" y="30" width="44" height="5" rx="0.5" opacity="0.5"/>
+            <rect x="6" y="25" width="36" height="5" rx="0.5" opacity="0.65"/>
+            <rect x="7"  y="19" width="9" height="6" opacity="0.75"/>
+            <rect x="8"  y="15" width="7" height="4" opacity="0.8"/>
+            <rect x="9"  y="12" width="5" height="3" opacity="0.85"/>
+            <polygon points="11.5,7 14,12 9,12" opacity="0.9"/>
+            <rect x="32" y="19" width="9" height="6" opacity="0.75"/>
+            <rect x="33" y="15" width="7" height="4" opacity="0.8"/>
+            <rect x="34" y="12" width="5" height="3" opacity="0.85"/>
+            <polygon points="36.5,7 39,12 34,12" opacity="0.9"/>
+            <rect x="16" y="19" width="16" height="6"/>
+            <rect x="17" y="15" width="14" height="4"/>
+            <rect x="18" y="11" width="12" height="4"/>
+            <rect x="19" y="8"  width="10" height="3"/>
+            <rect x="20" y="5"  width="8"  height="3"/>
+            <rect x="21" y="3"  width="6"  height="2"/>
+            <polygon points="24,0 27,3 21,3"/>
+          </svg>
+        </div>
+        <span class="brand-name">Cambodia HR</span>
+      </div>
+
+      <div class="panel-hero">
+        <h2 class="panel-tagline">Your people,<br/><em>one platform.</em></h2>
+        <p class="panel-desc">
+          The modern HR management system built for teams that move fast.
+          Manage employees, track departments, and grow together.
+        </p>
+
+        <div class="panel-features">
+          <div class="feature-item">
+            <div class="feature-dot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            Employee management & records
+          </div>
+          <div class="feature-item">
+            <div class="feature-dot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                <path d="M8 21h8M12 17v4"/>
+              </svg>
+            </div>
+            Real-time dashboard analytics
+          </div>
+          <div class="feature-item">
+            <div class="feature-dot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            Secure JWT authentication
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:12px;color:rgba(241,242,247,0.3);margin-top:auto;padding-top:32px">
+        &copy; 2026 Cambodia HR. All rights reserved.
+      </p>
+
+    </div>
+  </aside>
+
+  <!-- RIGHT FORM PANEL -->
+  <main class="login-right">
+
+    <!-- Theme toggle -->
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+    </button>
+
+    <div class="login-card">
+
+      <h1 class="login-card-title">Sign in</h1>
+      <p class="login-card-sub">Enter your credentials to access your workspace</p>
+
+      <!-- Error banner -->
+      <div class="login-error hidden" id="loginError">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span id="loginErrorMsg">Invalid username or password</span>
+      </div>
+
+      <form id="loginForm" novalidate>
+
+        <div class="login-field">
+          <label class="login-label" for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="login-input"
+            placeholder="Enter your username"
+            autocomplete="username"
+            spellcheck="false"
+          />
+          <div class="field-error hidden" id="errUsername">Username is required</div>
+        </div>
+
+        <div class="login-field">
+          <label class="login-label" for="password">Password</label>
+          <div class="login-input-wrap">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="login-input"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+            />
+            <button type="button" class="login-eye" id="togglePassword" tabindex="-1" aria-label="Show/hide password">
+              <svg id="eyeOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg id="eyeClosed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+                <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+          <div class="field-error hidden" id="errPassword">Password is required</div>
+        </div>
+
+        <button type="submit" class="login-btn" id="loginBtn">
+          <span id="loginBtnText">Sign In</span>
+          <div class="spinner hidden" id="loginSpinner"></div>
+        </button>
+
+      </form>
+
+      <div class="login-footer">
+        Cambodia HR &mdash; Secure access portal
+      </div>
+
+    </div>
+  </main>
+
+  <script src="login.js"></script>
+</body>
+</html>

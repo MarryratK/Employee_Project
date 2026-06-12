@@ -1,0 +1,47 @@
+CREATE TABLE IF NOT EXISTS department (
+    DeptID INT AUTO_INCREMENT PRIMARY KEY,
+    DepartmentName VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS position (
+    PostID INT AUTO_INCREMENT PRIMARY KEY,
+    PositionName VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS office (
+    OfficeID INT AUTO_INCREMENT PRIMARY KEY,
+    OfficeName VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS division (
+    DivisionID INT AUTO_INCREMENT PRIMARY KEY,
+    DivisionName VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS branch (
+    BranchID INT AUTO_INCREMENT PRIMARY KEY,
+    BranchName VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS employee (
+    EmpCode VARCHAR(50) PRIMARY KEY,
+    EmpName VARCHAR(100) NOT NULL,
+    Gender VARCHAR(10),
+    DepartmentID INT,
+    PositionID INT,
+    OfficeID INT,
+    DivisionID INT,
+    BranchID INT,
+    FOREIGN KEY (DepartmentID) REFERENCES department(DeptID),
+    FOREIGN KEY (PositionID) REFERENCES position(PostID),
+    FOREIGN KEY (OfficeID) REFERENCES office(OfficeID),
+    FOREIGN KEY (DivisionID) REFERENCES division(DivisionID),
+    FOREIGN KEY (BranchID) REFERENCES branch(BranchID)
+);
+
+CREATE TABLE IF NOT EXISTS tbl_user (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    remark VARCHAR(255)
+);
