@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS department (
     DepartmentName VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS position (
+CREATE TABLE IF NOT EXISTS `position` (
     PostID INT AUTO_INCREMENT PRIMARY KEY,
     PositionName VARCHAR(100) NOT NULL
 );
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS employee (
     DivisionID INT,
     BranchID INT,
     FOREIGN KEY (DepartmentID) REFERENCES department(DeptID),
-    FOREIGN KEY (PositionID) REFERENCES position(PostID),
+    FOREIGN KEY (PositionID) REFERENCES `position`(PostID),
     FOREIGN KEY (OfficeID) REFERENCES office(OfficeID),
     FOREIGN KEY (DivisionID) REFERENCES division(DivisionID),
     FOREIGN KEY (BranchID) REFERENCES branch(BranchID)
