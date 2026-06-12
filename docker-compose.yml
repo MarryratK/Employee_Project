@@ -11,8 +11,7 @@ services:
       DB_PASSWORD: root
       DB_NAME: backend-dev
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     restart: unless-stopped
 
   db:
